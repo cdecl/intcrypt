@@ -1,0 +1,28 @@
+CC = g++
+CC_FLAGS = -fPIC -std=c++14 -Wall -O2 -I/usr/local/opt/openssl/include 
+#LD_LIBS = -lcryptopp -Lpackage/cryptopp-CRYPTOPP_6_1_0 -lboost_system -lboost_regex -lssl -lcrypto -L/usr/local/opt/openssl/lib
+LD_LIBS = -lcryptopp -lboost_system -lboost_regex -lssl -lcrypto -L/usr/local/opt/openssl/lib
+
+
+EXEC = libintcrypt.so
+SOURCES = $(wildcard *.cpp)
+OBJECTS = $(SOURCES:.cpp=.o)
+
+# Main target
+$(EXEC): $(OBJECTS)
+	$(CC) -shared $(OBJECTS) -o $(EXEC) $(LD_LIBS)
+
+%.o: %.cpp
+	$(CC) -c -Wl,-soname,libintcrypt.so.0 $(CC_FLAGS) $< -o $@
+
+clean:
+	rm -f $(EXEC) $(OBJECTS)
+
+install:
+	cp -f $(EXEC) lib/
+	mkdir -p /usr/local/intcrypt/
+	cp -f lib/*.so /usr/local/intcrypt/
+
+
+
+

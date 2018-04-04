@@ -1,0 +1,8 @@
+LIBRARY
+EXPORTS
+	ExistsKey
+	IsCached
+	DeleteCached
+	Encrypt
+	Decrypt
+	ConvertKeyFile
