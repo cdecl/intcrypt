@@ -45,3 +45,5 @@ CTestTestfile.cmake
 
 **/main
 **/test
+
+/build
