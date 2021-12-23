@@ -151,7 +151,7 @@ private:
 	static KeyReppType& GetKeyReop();
 	static KeyType& GetKeyDomain(const std::string &domain);
 	static KeyType GetKey(std::istream &iss);
-	static std::string GetHttp(const std::string &url);
+	// static std::string GetHttp(const std::string &url);
 
 };
 

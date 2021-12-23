@@ -3,7 +3,7 @@
 #include <boost/algorithm/string.hpp>
 using namespace std;
 
-#include "http_client.h"
+// #include "http_client.h"
 using namespace CryptoPP;
 
 const std::string CryptoppImpl::KEY_HEADER("intcrypt://");
@@ -54,18 +54,23 @@ CryptoppImpl::KeyType& CryptoppImpl::GetKeyDomain(const std::string &domain)
         try {
             const std::string HTTP_ADDR = "http";
 
-            if (domain.length() >= HTTP_ADDR.length() 
-                && boost::to_lower_copy(domain.substr(0, HTTP_ADDR.length())) == HTTP_ADDR) 
-            {
-                std::string body = GetHttp(domain);
-                istringstream is(body);
-                keys = std::move(GetKey(is));
-            }
-            else {
-                ifstream fin(domain.c_str());
-                if (fin) {
-                    keys = std::move(GetKey(fin));
-                }
+            // if (domain.length() >= HTTP_ADDR.length() 
+            //     && boost::to_lower_copy(domain.substr(0, HTTP_ADDR.length())) == HTTP_ADDR) 
+            // {
+            //     std::string body = GetHttp(domain);
+            //     istringstream is(body);
+            //     keys = std::move(GetKey(is));
+            // }
+            // else {
+            //     ifstream fin(domain.c_str());
+            //     if (fin) {
+            //         keys = std::move(GetKey(fin));
+            //     }
+            // }
+
+            ifstream fin(domain.c_str());
+            if (fin) {
+                keys = std::move(GetKey(fin));
             }
         }
         catch (...) {}
@@ -125,28 +130,28 @@ CryptoppImpl::KeyType CryptoppImpl::GetKey(istream &iss)
     return std::move(keys);
 }
 
-std::string CryptoppImpl::GetHttp(const string &url)
-{
-    using namespace GLASS;
-    const int PAGE_TIMEOUT = 5000;
+// std::string CryptoppImpl::GetHttp(const string &url)
+// {
+//     using namespace GLASS;
+//     const int PAGE_TIMEOUT = 5000;
 
-    std::string body;
-    GLASS::http_service service;
-    GLASS::http_client c(service);
+//     std::string body;
+//     GLASS::http_service service;
+//     GLASS::http_client c(service);
 
-    bool b = c.open(url, "", PAGE_TIMEOUT);
-    if (b) {
-        int status = c.get().get();
+//     bool b = c.open(url, "", PAGE_TIMEOUT);
+//     if (b) {
+//         int status = c.get().get();
 
-        if (status > HTTP_TIMEOUT) {
-        //if (status == HTTP_200) {                                        
-            http_parser ps = http_parser::parse(c.response());
-            body = ps.body().str();
-        //}                                                                
-        }
-    }
-    return body;
-}
+//         if (status > HTTP_TIMEOUT) {
+//         //if (status == HTTP_200) {                                        
+//             http_parser ps = http_parser::parse(c.response());
+//             body = ps.body().str();
+//         //}                                                                
+//         }
+//     }
+//     return body;
+// }
 
 bool CryptoppImpl::EncryptKeyFile(const std::string &plainfile, const std::string &keyfile)
 {
