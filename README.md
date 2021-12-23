@@ -3,11 +3,11 @@
 
 ### Build 
 
-#### vcpkg 
+#### vcpkg install 
 
 ```sh
-$ ./vcpkg 
-./vcpkg install cryptopp boost-algorithm
+# vcpkg install 
+$ ./vcpkg install cryptopp boost-algorithm
 Computing installation plan...
 The following packages are already installed:
     boost-algorithm[core]:x64-linux -> 1.76.0
@@ -28,8 +28,10 @@ The package cryptopp:x64-linux provides CMake targets:
     target_link_libraries(main PRIVATE cryptopp-static)
 ```
 
+#### cmake build 
+
 ```sh
-# CMake Init
+# cmake initialize 
 $ cmake -B build -DCMAKE_TOOLCHAIN_FILE=~/lib/vcpkg/scripts/buildsystems/vcpkg.cmake
 -- The C compiler identification is GNU 9.3.0
 -- The CXX compiler identification is GNU 9.3.0
@@ -52,7 +54,6 @@ $ cmake -B build -DCMAKE_TOOLCHAIN_FILE=~/lib/vcpkg/scripts/buildsystems/vcpkg.c
 # Build
 $ cmake --build build 
 ...
-
 
 $ tree build/lib
 build/lib
