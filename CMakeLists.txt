@@ -20,8 +20,8 @@ file(GLOB src "src/*.cpp")
 #set(src xxx.cpp)
 
 add_library(intcrypt SHARED ${src})
-# add_library(intcrypt-static STATIC ${src})
-# set_target_properties(intcrypt-static PROPERTIES OUTPUT_NAME intcrypt)
+add_library(intcrypt-static STATIC ${src})
+set_target_properties(intcrypt-static PROPERTIES OUTPUT_NAME intcrypt)
 
 # target_include_directories(intcrypt PRIVATE /home/cdecl/lib/vcpkg/installed/x64-linux/include/)
 # target_include_directories(intcrypt-static PRIVATE /home/cdecl/lib/vcpkg/installed/x64-linux/include/)
@@ -31,5 +31,5 @@ add_library(intcrypt SHARED ${src})
 
 find_package(cryptopp CONFIG REQUIRED)
 target_link_libraries(intcrypt PRIVATE cryptopp-static)
-# target_link_libraries(intcrypt-static PRIVATE cryptopp-static)
+target_link_libraries(intcrypt-static PRIVATE cryptopp-static)
 
